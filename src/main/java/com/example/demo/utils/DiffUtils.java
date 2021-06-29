@@ -3,8 +3,11 @@ package com.example.demo.utils;
 import java.util.ArrayList;
 
 public class DiffUtils {
+    public static void main(String[] args) {
+        getDiffData();
 
-    public void getDiffData(){
+    }
+    public static void getDiffData(){
         String str = "diff --git a/src/test/java/com/example/demo/SpringbootTestApplicationTests.java b/src/test/java/com/example/demo/SpringbootTestApplicationTests.java\n" +
                 "index 52d9be6..c66ce63 100644\n" +
                 "--- a/src/test/java/com/example/demo/SpringbootTestApplicationTests.java\n" +
@@ -24,8 +27,18 @@ public class DiffUtils {
         for (String data : diffData
                 ) {
             if (data.startsWith("+++")  && data.endsWith(".java") ){
-
+                System.out.println(data.substring(data.indexOf("com/")));
             }
+            if (data.startsWith("@@")){
+                System.out.println(data.substring(data.indexOf("-")+1,data.indexOf(",")));
+            }
+            if (data.replaceAll("\t","").startsWith("-")){
+                System.out.println(diffLine+" : "+data);
+            }
+            if (data.replaceAll("\t","").startsWith("+")){
+                System.out.println(diffLine+" : "+data);
+            }
+            diffLine++;
         }
 
 
