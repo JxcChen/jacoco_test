@@ -26,4 +26,12 @@ public class DiffLines {
     public void setDiffLineData(String diffLineData) {
         this.diffLineData = diffLineData;
     }
+
+    @Override
+    public String toString() {
+        return "DiffLines{" +
+                "diffLineIndex=" + diffLineIndex +
+                ", diffLineData='" + diffLineData + '\'' +
+                '}';
+    }
 }

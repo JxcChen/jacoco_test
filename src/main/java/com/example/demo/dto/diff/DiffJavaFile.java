@@ -39,4 +39,6 @@ public class DiffJavaFile {
     public void setDiffLines(ArrayList<DiffLines> diffLines) {
         this.diffLines = diffLines;
     }
+
+
 }

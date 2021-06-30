@@ -16,9 +16,9 @@ public class DiffUtils {
         // 所有java文件差异信息集合
         ArrayList<DiffJavaFile> diffJavaFileList = new ArrayList<>();
         // 差异行号集合
-        ArrayList<DiffLines> diffLinesList = new ArrayList<>();
+        ArrayList<DiffLines> diffLinesList = null;
         // 差异行号和行内容集合
-        ArrayList<Integer> diffLineNum = new ArrayList<>();
+        ArrayList<Integer> diffLineNum = null;
         String str = "diff --git a/src/main/java/com/example/demo/dto/diff/DiffJavaFile.java b/src/main/java/com/example/demo/dto/diff/DiffJavaFile.java\n" +
                 "index 6383653..997cbc7 100644\n" +
                 "--- a/src/main/java/com/example/demo/dto/diff/DiffJavaFile.java\n" +
@@ -124,10 +124,9 @@ public class DiffUtils {
 
         for (String diffStr: diffStrArr
              ) {
-            // 清空数据
-            System.out.println(diffStr);
-            diffLineNum.clear();
-            diffLinesList.clear();
+            // 初始化集合
+            diffLineNum = new ArrayList<>();
+            diffLinesList = new ArrayList<>();
             // 在根据换行符将字符串分割成行数据
             String[] diffData = diffStr.split("\n");
             DiffJavaFile diffJavaFile = new DiffJavaFile();
@@ -137,7 +136,7 @@ public class DiffUtils {
                 String replaceStr = data.replaceAll(" ", "");
 
                 if ((data.startsWith("+++") || data.startsWith("---")) && data.endsWith(".java") ){
-                    System.out.println(data.substring(data.indexOf("com/")));
+
                     filePath = data.substring(data.indexOf("com/"));
                 }
                 else if (data.startsWith("@@")){
@@ -172,6 +171,7 @@ public class DiffUtils {
             diffJavaFile.setDiffLinesNum(diffLineNum);
             diffJavaFileList.add(diffJavaFile);
         }
+
 
         String s = JSONObject.toJSONString(diffJavaFileList);
         System.out.println(s);
