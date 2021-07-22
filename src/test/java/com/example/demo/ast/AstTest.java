@@ -44,7 +44,7 @@ public class AstTest {
         for (MethodDeclaration method:
                 methods) {
             int lineNumber = cu.getLineNumber(method.getStartPosition());
-            int length = method.get();
+            int length = method.getLength();
             System.out.println(length+"+++");
             System.out.println(lineNumber);
             System.out.println(method.toString());
