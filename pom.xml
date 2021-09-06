@@ -58,7 +58,12 @@
 			<artifactId>runtime</artifactId>
 			<version>3.10.0-v20140318-2214</version>
 		</dependency>
-
+		<!-- JGit -->
+		<dependency>
+			<groupId>org.eclipse.jgit</groupId>
+			<artifactId>org.eclipse.jgit</artifactId>
+			<version>5.12.0.202106070339-r</version>
+		</dependency>
 
 	</dependencies>
 
