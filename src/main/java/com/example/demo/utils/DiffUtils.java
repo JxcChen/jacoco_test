@@ -8,10 +8,10 @@ import java.util.ArrayList;
 public class DiffUtils {
 
 
-    public static void getDiffData(String diffText){
+    public static String getDiffData(String diffText){
         if (diffText==null || diffText.equals("")){
             System.out.println("差异数据不能为空");
-            return;
+            return null;
         }
         // 所有java文件差异信息集合
         ArrayList<DiffJavaFile> diffJavaFileList = new ArrayList<>();
@@ -87,9 +87,8 @@ public class DiffUtils {
             diffJavaFileList.add(diffJavaFile);
         }
 
-
-        String s = JSONObject.toJSONString(diffJavaFileList);
-        System.out.println(s);
+        String jsonString = JSONObject.toJSONString(diffJavaFileList);
+        return jsonString;
     }
 
 }

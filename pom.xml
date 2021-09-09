@@ -79,14 +79,17 @@
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.7</version>
 				<configuration>
-					<address>159.75.6.218</address>
-					<port>8819</port>
+					<!-- address 要写项目启动服务器的地址 -->
+					<address>localhost</address>
+					<!-- 服务器端口 -->
+					<port>8081</port>
 					<append>false</append>
 					<fileSets>
 						<fileSet>
 							<diretory>${project.basedir}</diretory>
 						</fileSet>
 						<includes>
+							<!-- 会获取到所有包含.exec结尾的文件 -->
 							<include>*.exec</include>
 						</includes>
 					</fileSets>

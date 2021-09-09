@@ -22,11 +22,11 @@ public class CalculatorController {
             System.out.println("数值1不能为空");
 
         }else if (num2 == null){
-            System.out.println("数值2不能为空");
+            System.out.println("数值2不能为空啊！！");
 
         }else {
             if (method.equals("add")){
-                System.out.println(num1+num2);
+                System.out.println(num1+num2+"修改");
             }
             if (method.equals("del")){
                 System.out.println(num1-num2);
@@ -36,7 +36,7 @@ public class CalculatorController {
             }
             if (method.equals("div")){
                 if (num2 == 0){
-                    System.out.println("被除数不能为0");
+                    System.out.println("被除数不能为0"+"修改");
                 }else
                     System.out.println(num1/num2);
             }

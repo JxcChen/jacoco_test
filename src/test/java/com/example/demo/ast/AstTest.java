@@ -16,6 +16,8 @@ import java.util.List;
 public class AstTest {
 
     public static void main(String[] args) throws Exception {
+
+        // 创建语法解析树
         ASTParser parser = ASTParser.newParser(AST.JLS8);
         parser.setResolveBindings(true);
         parser.setBindingsRecovery(true);
