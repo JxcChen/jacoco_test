@@ -25,7 +25,7 @@ public class CalculatorController {
             System.out.println("数值1不能为空");
 
         }else if (num2 == null){
-            System.out.println("数值2不能为空啊！！！！");
+            System.out.println("数值2不能为空啊！！");
 
         }else {
             if (method.equals("add")){
@@ -53,7 +53,7 @@ public class CalculatorController {
         Integer num1 = param.getNum1();
         Integer num2 = param.getNum2();
         if (num1 == null){
-            System.out.println("数值1不能为空");
+            System.out.println("数值1不能为空！！");
 
         }else if (num2 == null){
             System.out.println("数值2不能为空啊！！");
