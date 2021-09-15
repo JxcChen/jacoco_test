@@ -15,4 +15,9 @@ public class GitTest {
     void testDiff(){
         GitUtils.diffMethod("1029534b53b122017a50924c128fc5cce40164a5","4b9d76e7c0e158288465e0c6bf4ea02df12cb21a");
     }
+
+    @Test
+    void test2(){
+
+    }
 }
