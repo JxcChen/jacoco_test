@@ -18,8 +18,8 @@ public class MethodChangeTest {
         DiffMethods.diffStr = DiffUtils.getDiffData(diffStr);
         System.out.println(DiffUtils.getDiffData(diffStr));
         DiffMethods.useDiff =true;
-        Boolean isChangeAdd = DiffMethods.isMethodChanged("com/example/demo/controller/CalculatorController","getReport","(Lcom/example/demo/controller/Param;)");
-        Boolean isChangeAdd2 = DiffMethods.isMethodChanged("com/example/demo/controller/CalculatorController","getReport2","(Lcom/example/demo/controller/Param;)");
+        Boolean isChangeAdd = DiffMethods.isMethodChanged("com/example/demo/controller/CalculatorController","getReport","(Lcom/example/demo/controller/Param;)V");
+        Boolean isChangeAdd2 = DiffMethods.isMethodChanged("com/example/demo/controller/CalculatorController","getReport2","(Lcom/example/demo/controller/Param;)V");
         System.out.println(isChangeAdd);
         System.out.println(isChangeAdd2);
     }
