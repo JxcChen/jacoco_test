@@ -34,27 +34,27 @@ public class DiffInfoGenerator {
         this.diff_str=diff_str;
         this.diffinfolist=new ArrayList<MyDiffInfo>();
         // 序列化diffJSON对象 并储存差异信息到列表中
-        parse_diff_json();
+        parseDiffJson();
     }
     // 序列化diffJSON对象
-    private void parse_diff_json(){
+    private void parseDiffJson(){
         // 将json字符反序列化成对象
         json_obj= JSON.parseObject(diff_str);
         // 获取json中差异文件信息   转成jsonArray对象
-        JSONArray json_sub01= (JSONArray)json_obj.get("diff_java_files");
+        JSONArray json_sub01= (JSONArray)json_obj.get("diffJavaFileList");
         for(int i=0;i<json_sub01.size();i++){
 
                 diff_info = new MyDiffInfo();
                 JSONObject ob = (JSONObject) json_sub01.get(i);
                 // 获取包名+类名
-                diff_info.setClass_name((String) ob.get("java_file"));
+                diff_info.setClass_name((String) ob.get("javaFileDir"));
                 // 获取差异行号
-                JSONArray diff_lines_list = (JSONArray) ob.get("diff_line_nums");
+                JSONArray diffLinesList = (JSONArray) ob.get("diffLinesNum");
 
-                for (int j = 0; j < diff_lines_list.size(); j++) {
+                for (int j = 0; j < diffLinesList.size(); j++) {
                     // 遍历差异行号  添加到 diffInfo中
-                     int diff_line_num = (Integer) diff_lines_list.get(j);
-                    diff_info.chang_line_num.add(diff_line_num);
+                    int diffLineNum = (Integer) diffLinesList.get(j);
+                    diff_info.chang_line_num.add(diffLineNum);
                 }
                 if(diff_info.getClass_name()!= null && diff_info.getClass_name() != "" && diff_info.getChang_line_num().size() != 0){
                     // 若存在差异信息 则将diffInfo存入与列表中

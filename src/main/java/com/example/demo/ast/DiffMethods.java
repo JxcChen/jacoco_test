@@ -23,27 +23,27 @@ import java.util.List;
  * Created by kuohai on 2018/3/18.
  */
 public class DiffMethods {
-    public static String source_path;
-    public static String diff_str;
-    public static Boolean use_diff;
+    public static String sourcePath;
+    public static String diffStr;
+    public static Boolean useDiff;
 
-    public static boolean isMethodchanged(String classname, String methodname, String desc) throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException, InstantiationException {
+    public static boolean isMethodChanged(String classname, String methodname, String desc) throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException, InstantiationException {
         boolean is_changed = false;
-        String filePath = source_path + classname + ".java";
+        String filePath = sourcePath + classname + ".java";
         System.out.println(filePath);
         File f = new File(filePath);
         //diffMethodNodesList存放了方法的行范围及是否改变
         List<MyDiffMethodNode> diffMethodNodesList;
         //实例化一个ast_diffGenerator，并传入源码文件及diff_json
-        ASTGenerator ast_diffGenerator = new ASTDiffGenerator(f, diff_str);
+        ASTGenerator ast_diffGenerator = new ASTDiffGenerator(f, diffStr);
         //获取到包含是否变化信息的列表
         diffMethodNodesList = ast_diffGenerator.getMethodNodeList();
         //jacoco传来的方法的参数列表
-        List<String> para_list = get_paramlist(desc);
+        List<String> para_list = getParamList(desc);
         for (MyDiffMethodNode diff_methodnode : diffMethodNodesList) {
             //ast解析源码后获取的方法参数列表
             List diff_para_list01 = diff_methodnode.methodNode.parameters();
-            List<String> diff_para_list = toStringlist(diff_para_list01);
+            List<String> diff_para_list = toStringList(diff_para_list01);
             //布尔值，用来判断jacoco传来的方法是否跟ast解析出来的方法是否相等
             boolean is_paraequals = para_list.containsAll(diff_para_list) && diff_para_list.containsAll(para_list);
             if (diff_methodnode.methodNode.getName().toString().equals(methodname) && is_paraequals) {
@@ -54,7 +54,7 @@ public class DiffMethods {
         return is_changed;
     }
 
-    public static List<String> get_paramlist(String desc) {
+    public static List<String> getParamList(String desc) {
         String temp[];
         temp = desc.trim().split("\\)");
 
@@ -73,7 +73,7 @@ public class DiffMethods {
         return list;
     }
 
-    public static List<String> toStringlist(List<SingleVariableDeclaration> list) {
+    public static List<String> toStringList(List<SingleVariableDeclaration> list) {
         List<String> strlist = new ArrayList<String>();
         for (SingleVariableDeclaration obj : list) {
             strlist.add(obj.getType().toString());

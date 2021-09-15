@@ -68,7 +68,8 @@ public class ASTDiffGenerator extends ASTGenerator{
 		this.class_path_name=this.pakage_name.replace(".","/")+"/"+class_name+".java";
 		// 获取到差异信息列表 方法名 + 差异行号
 		List<MyDiffInfo> diffinfolist = diffinfo_generator.getDiffinfolist();
-		// traverse all child nodes, NodeVisitor
+
+		// methodNodeVisitor： 获取到类中的所有方法
 		for (MethodDeclaration m : methodNodeVisitor.getMethodDecs()) {
 			MyDiffMethodNode mNode = new MyDiffMethodNode();
 			mNode.methodNode = m;

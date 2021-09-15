@@ -14,7 +14,7 @@ public class DiffUtils {
             return null;
         }
         // 所有java文件差异信息集合
-        ArrayList<DiffJavaFile> diffJavaFileList = new ArrayList<>();
+        DiffResult diffResult = new DiffResult();
         // 差异行号集合
         ArrayList<DiffLines> diffLinesList = null;
         // 差异行号和行内容集合
@@ -84,10 +84,10 @@ public class DiffUtils {
             diffJavaFile.setJavaFileDir(filePath);
             diffJavaFile.setDiffLines(diffLinesList);
             diffJavaFile.setDiffLinesNum(diffLineNum);
-            diffJavaFileList.add(diffJavaFile);
+            diffResult.getDiffJavaFileList().add(diffJavaFile);
         }
 
-        String jsonString = JSONObject.toJSONString(diffJavaFileList);
+        String jsonString = JSONObject.toJSONString(diffResult);
         return jsonString;
     }
 

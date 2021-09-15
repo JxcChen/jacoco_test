@@ -64,8 +64,14 @@
 			<artifactId>org.eclipse.jgit</artifactId>
 			<version>5.12.0.202106070339-r</version>
 		</dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
 
-	</dependencies>
+    </dependencies>
 
 	<build>
 		<plugins>
@@ -77,12 +83,12 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.7</version>
+				<version>0.8.0</version>
 				<configuration>
 					<!-- address 要写项目启动服务器的地址 -->
 					<address>localhost</address>
 					<!-- 服务器端口 -->
-					<port>8081</port>
+					<port>8082</port>
 					<append>false</append>
 					<fileSets>
 						<fileSet>
