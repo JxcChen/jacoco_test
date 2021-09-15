@@ -20,7 +20,8 @@ import java.util.List;
  */
 public class GitUtils {
 
-    static String URL="G:\\gemdale\\demo";
+//    static String URL="G:\\gemdale\\demo";
+    static String URL="/Users/chnjx/IdeaProjects/jacoco_test";
     static Git git;
     public static Repository repository;
 

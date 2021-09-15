@@ -1,6 +1,7 @@
 package com.example.demo.git;
 
 import com.example.demo.utils.GitUtils;
+import com.example.demo.utils.ShowBranchDiff;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -17,7 +18,7 @@ public class GitTest {
     }
 
     @Test
-    void test2(){
-
+    void test2() throws Exception {
+        ShowBranchDiff.getBranchDiff();
     }
 }
