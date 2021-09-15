@@ -1,10 +1,8 @@
 package com.example.demo;
 
-import com.example.demo.ast.DiffMethod;
 import com.example.demo.utils.DiffUtils;
 import com.example.demo.utils.GitUtils;
 import org.junit.jupiter.api.Test;
-import org.xmlunit.diff.Diff;
 
 /**
  * @author JJJJ
