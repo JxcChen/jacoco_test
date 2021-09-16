@@ -30,9 +30,9 @@ public class ShowBranchDiff {
         StringBuffer sb = new StringBuffer();
         try (Repository repository = CookbookHelper.openJGitCookbookRepository()) {
             try (Git git = new Git(repository)) {
-                if(repository.exactRef("refs/heads/master") == null) {
+                if(repository.exactRef("refs/heads/dev") == null) {
                     // first we need to ensure that the remote branch is visible locally
-                    Ref ref = git.branchCreate().setName("dev").setStartPoint("dev").call();
+                    Ref ref = git.branchCreate().setName("dev").setStartPoint("origin/dev").call();
 
                     System.out.println("Created local testbranch with ref: " + ref);
                 }
@@ -54,6 +54,7 @@ public class ShowBranchDiff {
                     String diffText = out.toString("UTF-8");
                     sb.append(diffText);
                 }
+                System.out.println(sb);
 
             }
         }
