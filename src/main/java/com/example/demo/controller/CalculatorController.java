@@ -40,6 +40,7 @@ public class CalculatorController {
             if (method.equals("div")){
                 if (num2 == 0){
                     System.out.println("被除数不能为0"+"修改");
+                    System.out.println("修改一下");
                 }else
                     System.out.println(num1/num2);
             }
