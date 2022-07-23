@@ -36,6 +36,7 @@ public class CalculatorController {
             }
             if (method.equals("mul")){
                 System.out.println(num1*num2);
+                System.out.println("修改二下");
             }
             if (method.equals("div")){
                 if (num2 == 0){
@@ -43,6 +44,7 @@ public class CalculatorController {
                     System.out.println("修改一下");
                 }else
                     System.out.println(num1/num2);
+                System.out.println("修改一下");
             }
         }
 
