@@ -79,5 +79,12 @@ public class CalculatorController {
             }
         }
 
+
+    }
+
+    @GetMapping("/")
+    public void index(Param param){
+        System.out.println("hello");
+
     }
 }

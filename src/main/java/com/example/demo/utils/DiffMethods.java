@@ -9,61 +9,61 @@
  *    Marc R. Hoffmann - initial API and implementation
  *
  *******************************************************************************/
-package com.example.demo.ast;
+package com.example.demo.utils;
 
 
-import com.example.demo.ast.structure.MyDiffMethodNode;
+
+import com.example.demo.dto.ast.MyDiffMethodNode;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by kuohai on 2018/3/18.
- */
+
 public class DiffMethods {
     public static String sourcePath;
     public static String diffStr;
     public static Boolean useDiff;
 
-    public static boolean isMethodChanged(String classname, String methodname, String desc) throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException, InstantiationException {
+    public static boolean isMethodChanged(String classname, String methodName, String desc,String diffStr) throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException, InstantiationException {
         boolean is_changed = false;
-        String filePath = sourcePath + classname + ".java";
-        System.out.println(filePath);
-        File f = new File(filePath);
-        //diffMethodNodesList存放了方法的行范围及是否改变
-        List<MyDiffMethodNode> diffMethodNodesList;
+        String filePath = sourcePath+classname + ".java";
         //实例化一个ast_diffGenerator，并传入源码文件及diff_json
-        ASTGenerator ast_diffGenerator = new ASTDiffGenerator(f, diffStr);
+        JdtAstGenerator jdtAstGenerator = new JdtAstGenerator(filePath, diffStr);
         //获取到包含是否变化信息的列表
-        diffMethodNodesList = ast_diffGenerator.getMethodNodeList();
+        //diffMethodNodesList存放了方法的行范围及是否改变
+        List<MyDiffMethodNode> diffMethodNodesList = jdtAstGenerator.getMethodNodeList();
         //jacoco传来的方法的参数列表
         List<String> para_list = getParamList(desc);
-        for (MyDiffMethodNode diff_methodnode : diffMethodNodesList) {
+        for (MyDiffMethodNode diffMethodNode : diffMethodNodesList) {
             //ast解析源码后获取的方法参数列表
-            List diff_para_list01 = diff_methodnode.methodNode.parameters();
+            List diff_para_list01 = diffMethodNode.methodNode.parameters();
             List<String> diff_para_list = toStringList(diff_para_list01);
             //布尔值，用来判断jacoco传来的方法是否跟ast解析出来的方法是否相等
             boolean is_paraequals = para_list.containsAll(diff_para_list) && diff_para_list.containsAll(para_list);
-            if (diff_methodnode.methodNode.getName().toString().equals(methodname) && is_paraequals) {
+            if (diffMethodNode.methodNode.getName().toString().equals(methodName)) {
                 //取出该方法是否被改变的布尔值以供返回
-                is_changed = diff_methodnode.is_changed;
+                is_changed = diffMethodNode.isChange;
             }
         }
         return is_changed;
     }
 
+    /**
+     * 根据jacoco传过来的参数跟进行解析
+     * @param desc
+     * @return
+     */
     public static List<String> getParamList(String desc) {
-        String temp[];
-        temp = desc.trim().split("\\)");
+        String[] temp = desc.trim().split("\\)");
 
         List<String> list = new ArrayList<String>();
         if (temp.length > 1) {
             String param[] = temp[0].split(";");
             String ret[] = temp[1].split("/");
-            String return_velue = ret[ret.length - 1];
-            return_velue = return_velue.replace(";", "");
+//            String return_velue = ret[ret.length - 1];
+//            return_velue = return_velue.replace(";", "");
             for (int i = 0; i < param.length; i++) {
                 String pa[] = param[i].split("/");
                 String para = pa[pa.length - 1];
@@ -73,12 +73,16 @@ public class DiffMethods {
         return list;
     }
 
+    /**
+     * 装换成string集合
+     * @param list List<Objetc>
+     */
     public static List<String> toStringList(List<SingleVariableDeclaration> list) {
-        List<String> strlist = new ArrayList<String>();
+        List<String> strList = new ArrayList<String>();
         for (SingleVariableDeclaration obj : list) {
-            strlist.add(obj.getType().toString());
+            strList.add(obj.getType().toString());
         }
-        return strlist;
+        return strList;
     }
 
 }

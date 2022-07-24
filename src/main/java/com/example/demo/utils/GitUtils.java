@@ -28,11 +28,11 @@ public class GitUtils {
     public static String diffMethod(String Child, String Parent){
         StringBuffer sb = new StringBuffer();
         try {
-            git= Git.open(new File(URL));
+            git= Git.open(new File(URL)); // 打开本地repo_url
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        repository=git.getRepository();
+        repository=git.getRepository(); // 获取远程repo
         ObjectReader reader = repository.newObjectReader();
         CanonicalTreeParser oldTreeIter = new CanonicalTreeParser();
 
@@ -42,6 +42,7 @@ public class GitUtils {
             oldTreeIter.reset(reader, old);
             CanonicalTreeParser newTreeIter = new CanonicalTreeParser();
             newTreeIter.reset(reader, head);
+            // 比对两个版本代码差异
             List<DiffEntry> diffs= git.diff()
                     .setNewTree(newTreeIter)
                     .setOldTree(oldTreeIter)

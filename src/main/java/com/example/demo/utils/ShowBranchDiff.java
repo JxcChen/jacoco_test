@@ -26,6 +26,11 @@ import java.io.IOException;
 import java.util.List;
 
 public class ShowBranchDiff {
+    /**
+     * 获取两个分支的代码差别
+     * @return
+     * @throws Exception
+     */
     public static String getBranchDiff() throws Exception {
         StringBuffer sb = new StringBuffer();
         try (Repository repository = CookbookHelper.openJGitCookbookRepository()) {
@@ -46,10 +51,9 @@ public class ShowBranchDiff {
                 DiffFormatter df = new DiffFormatter(out);
                 df.setRepository(git.getRepository());
                 // then the procelain diff-command returns a list of diff entries
-                List<DiffEntry> diff = git.diff().setOldTree(oldTreeParser).setNewTree(newTreeParser).call();
+                List<DiffEntry> diff = git.diff().setOldTree(oldTreeParser).setNewTree(newTreeParser).call(); //获取两个分支的diff内容
 
                 for (DiffEntry entry : diff) {
-                    System.out.println("Entry: " + entry);
                     df.format(entry);
                     String diffText = out.toString("UTF-8");
                     sb.append(diffText);
@@ -63,9 +67,9 @@ public class ShowBranchDiff {
 
     private static AbstractTreeIterator prepareTreeParser(Repository repository, String ref) throws IOException {
         // from the commit we can build the tree which allows us to construct the TreeParser
-        Ref head = repository.exactRef(ref);
+        Ref head = repository.exactRef(ref); // 获取该分支
         try (RevWalk walk = new RevWalk(repository)) {
-            RevCommit commit = walk.parseCommit(head.getObjectId());
+            RevCommit commit = walk.parseCommit(head.getObjectId()); // 获取该分支的commit
             RevTree tree = walk.parseTree(commit.getTree().getId());
 
             CanonicalTreeParser treeParser = new CanonicalTreeParser();

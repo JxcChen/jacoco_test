@@ -1,6 +1,11 @@
 package com.example.demo.ast;
 
+import com.example.demo.dto.ast.MyDiffMethodNode;
+import com.example.demo.utils.DiffMethods;
+import com.example.demo.utils.GitUtils;
+import com.example.demo.utils.JdtAstGenerator;
 import org.eclipse.jdt.core.dom.*;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -15,44 +20,33 @@ import java.util.List;
  */
 public class AstTest {
 
-    public static void main(String[] args) throws Exception {
-
-        // 创建语法解析树
-        ASTParser parser = ASTParser.newParser(AST.JLS8);
-        parser.setResolveBindings(true);
-        parser.setBindingsRecovery(true);
-        parser.setKind(ASTParser.K_COMPILATION_UNIT);
-        File resource = new File("src/main/java/com/example/demo/utils/DiffUtils.java");
-        Path path = Paths.get(resource.toURI());
-        String sourceStr = new String(Files.readAllBytes(path));
-        char[] charsSource = sourceStr.toCharArray();
-        parser.setSource(charsSource);
-        parser.setUnitName(path.toAbsolutePath().toString());
-        CompilationUnit cu =  (CompilationUnit)parser.createAST(null);
-        // 获取抽象树
-        AST ast = cu.getAST();
-        // 获取类 如果有多个就会获取多个
-        List<TypeDeclaration> types = cu.types();
-        // 获取到第一个
-        TypeDeclaration type = types.get(0);
-        // 获取属性
-//        FieldDeclaration[] fields = type.getFields();
-//        for (FieldDeclaration f :
-//                fields) {
-//            System.out.println(f.toString());
-//        }
-        // 获取方法
-        MethodDeclaration[] methods = type.getMethods();
-        for (MethodDeclaration method:
-                methods) {
-            int lineNumber = cu.getLineNumber(method.getStartPosition());
-            int length = method.getLength();
-            System.out.println(length+"+++");
-            System.out.println(lineNumber);
-            System.out.println(method.toString());
-
-        }
-
-
+    @Test
+    void test01(){
+        JdtAstGenerator jdtAstGenerator = new JdtAstGenerator("src/main/java/com/example/demo/controller/CalculatorController.java",
+                GitUtils.diffMethod("44ef696caed38fbbb0dd151128f1181c63041b85", "2990d78b0b285aaa5ff902e0db48b3e38e783a65"));
+        List<MyDiffMethodNode> methodNodeList = jdtAstGenerator.getMethodNodeList();
+        System.out.println("debug");
     }
+
+    @Test
+    void test02() throws Exception {
+        DiffMethods.sourcePath = "/Users/chnjx/IdeaProjects/jacoco_test/src/main/java/";
+        boolean is_change_add = DiffMethods.isMethodChanged("com/example/demo/controller/CalculatorController",
+                "getReport",
+                "(Lcom/cyber/range/controller/Param;)Ljava/lang/String;\"",
+                GitUtils.diffMethod("44ef696caed38fbbb0dd151128f1181c63041b85", "2990d78b0b285aaa5ff902e0db48b3e38e783a65")
+        );
+        boolean is_change_add2 = DiffMethods.isMethodChanged("com/example/demo/controller/CalculatorController",
+                "getReport2",
+                "(Lcom/cyber/range/controller/Param;)Ljava/lang/String;\"",
+                GitUtils.diffMethod("44ef696caed38fbbb0dd151128f1181c63041b85", "2990d78b0b285aaa5ff902e0db48b3e38e783a65")
+        );
+        System.out.println("debug");
+    }
+
+    @Test
+    void test03(){
+        System.out.println(System.getProperty("user.dir") + "/src/main/java/");
+    }
+
 }

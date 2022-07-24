@@ -1,14 +1,37 @@
 package com.example.demo.utils;
 
-import com.alibaba.fastjson.JSONObject;
 import com.example.demo.dto.diff.*;
 
 import java.util.ArrayList;
 
 public class DiffUtils {
 
-
-    public static String getDiffData(String diffText){
+    /**
+     * 分装两个分支的差异部分
+     * @param diffText 差异文本
+     * @return {
+     *     "diffJavaFileList": [
+     *         {
+     *             "diffLines": [
+     *                 {
+     *                     "diffLineData": "                System.out.println(\"修改二下\");",
+     *                     "diffLineIndex": 39
+     *                 },
+     *                 {
+     *                     "diffLineData": "                System.out.println(\"修改一下\");",
+     *                     "diffLineIndex": 46
+     *                 }
+     *             ],
+     *             "diffLinesNum": [
+     *                 39,
+     *                 46
+     *             ],
+     *             "javaFileDir": "com/example/demo/controller/CalculatorController.java"
+     *         }
+     *     ]
+     * }
+     */
+    public static DiffResult getDiffData(String diffText){
         if (diffText==null || diffText.equals("")){
             System.out.println("差异数据不能为空");
             return null;
@@ -19,9 +42,7 @@ public class DiffUtils {
         ArrayList<DiffLines> diffLinesList = null;
         // 差异行号和行内容集合
         ArrayList<Integer> diffLineNum = null;
-
         //  将字符串根据换行符分割成数组
-
         String filePath = "";
         int diffLine = 0;
         int starLine;
@@ -47,8 +68,8 @@ public class DiffUtils {
                     break;
                 }
                 else if ((data.startsWith("+++") || data.startsWith("---")) && data.endsWith(".java") ){
-
                     filePath = data.substring(data.indexOf("com/"));
+                    continue;
                 }
                 else if (data.startsWith("@@")){
                     starLine = Integer.parseInt(data.substring(data.indexOf("-")+1,data.indexOf(",")));
@@ -87,8 +108,10 @@ public class DiffUtils {
             diffResult.getDiffJavaFileList().add(diffJavaFile);
         }
 
-        String jsonString = JSONObject.toJSONString(diffResult);
-        return jsonString;
+        return diffResult;
     }
 
+//    public static  parseJson2List(){
+//
+//    }
 }
